@@ -6,7 +6,9 @@ import {
   Patch,
   Post,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { ProductDto } from 'src/dto/product.dto';
 import { ProductDocument } from './product.schema';
 import { ProductService } from './product.service';
@@ -14,7 +16,7 @@ import { ProductService } from './product.service';
 @Controller('product')
 export class ProductController {
   constructor(private productService: ProductService) {}
-
+  @UseGuards(JwtGuard)
   @Get()
   findAllProducts(): Promise<ProductDocument[]> {
     return this.productService.findAllProducts();
