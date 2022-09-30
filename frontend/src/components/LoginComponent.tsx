@@ -10,16 +10,16 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { RegisterUser } from "../models/user.interface";
+import { LoginUser } from "../models/user.interface";
 
-const RegisterComponent: FC = () => {
+const LoginComponent: FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterUser>();
+  } = useForm<LoginUser>();
 
-  const onSubmitHandler = (userInfo: RegisterUser) => {
+  const onSubmitHandler = (userInfo: LoginUser) => {
     console.log(userInfo);
   };
 
@@ -38,22 +38,6 @@ const RegisterComponent: FC = () => {
           <Typography variant="h4" component="h1">
             Create account
           </Typography>
-
-          <InputLabel
-            sx={{ fontWeight: 500, marginTop: 1, color: "#000000" }}
-            htmlFor="name"
-          >
-            Your name
-          </InputLabel>
-          <TextField
-            {...register("name", { required: true })}
-            type="text"
-            variant="outlined"
-            size="small"
-            placeholder="Your Name"
-            error={!!errors.name}
-            helperText={!!errors.name ? "Required" : null}
-          />
 
           <InputLabel
             sx={{ fontWeight: 500, marginTop: 1, color: "#000000" }}
@@ -85,22 +69,6 @@ const RegisterComponent: FC = () => {
             error={!!errors.password}
             helperText={!!errors.password ? "Required" : null}
           />
-
-          <InputLabel
-            sx={{ fontWeight: 500, marginTop: 1, color: "#000000" }}
-            htmlFor="confirmPassword"
-          >
-            Re-enter password
-          </InputLabel>
-          <TextField
-            {...register("confirmPassword", { required: true })}
-            type="password"
-            variant="outlined"
-            size="small"
-            placeholder="Confirm Password"
-            error={!!errors.confirmPassword}
-            helperText={!!errors.confirmPassword ? "Required" : null}
-          />
           <Button
             id="register-btn"
             variant="contained"
@@ -113,7 +81,7 @@ const RegisterComponent: FC = () => {
             }}
             type="submit"
           >
-            Register
+            Login
           </Button>
         </Grid>
       </form>
@@ -122,12 +90,12 @@ const RegisterComponent: FC = () => {
 
       <div>
         <small>
-          Already have an account?{" "}
+          Don't have an account?{" "}
           <Link
-            to="/login"
+            to="/register"
             style={{ textDecoration: "none", color: "#0000ee" }}
           >
-            Login Now
+            SignUp Now
           </Link>
         </small>
       </div>
@@ -135,4 +103,4 @@ const RegisterComponent: FC = () => {
   );
 };
 
-export default RegisterComponent;
+export default LoginComponent;
