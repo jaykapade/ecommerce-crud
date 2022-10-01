@@ -58,7 +58,7 @@ export class AuthService {
   async login(userInfo: LoginUserDto): Promise<{ token: string } | null> {
     // const { email, password } = userInfo;
 
-    const user = this.validateUser(userInfo);
+    const user = await this.validateUser(userInfo);
     if (!user) return null;
 
     const jwt = await this.jwtService.signAsync({ user });
