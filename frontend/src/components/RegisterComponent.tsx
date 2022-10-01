@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { RegisterUser } from "../models/user.interface";
+import { RegisterUser } from "../models/user.type";
 
 const RegisterComponent: FC = () => {
   const {

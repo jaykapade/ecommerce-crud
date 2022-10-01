@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { LoginUser } from "../models/user.interface";
+import { LoginUser } from "../models/user.type";
 
 const LoginComponent: FC = () => {
   const {

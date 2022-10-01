@@ -1,17 +1,19 @@
-export interface LoginUser {
+export type LoginUser = {
   email: string;
   password: string;
-}
+};
 
-export interface RegisterUser {
+export type RegisterUser = {
   name: string;
   email: string;
   password: string;
   confirmPassword: string;
-}
+};
 
-export interface DisplayUser {
+export type NewUser = Omit<RegisterUser, "confirmPassword">;
+
+export type DisplayUser = {
   id: string;
   name: string;
   email: string;
-}
+};
