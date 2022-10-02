@@ -13,11 +13,20 @@ const ProductListing: FC = () => {
   }, []);
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "48px",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: "48px",
+      }}
+    >
       {products.map((product) => (
-        <ProductItem product={product} />
+        <ProductItem product={product} key={product._id} />
       ))}
-    </>
+    </div>
   );
 };
 

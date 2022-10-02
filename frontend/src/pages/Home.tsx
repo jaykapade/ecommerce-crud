@@ -4,7 +4,6 @@ import ProductListing from "../components/ProductListing";
 const Home = () => {
   return (
     <>
-      <HeaderComponent />
       <ProductListing />
     </>
   );
