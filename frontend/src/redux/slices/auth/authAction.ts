@@ -27,3 +27,14 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout();
 });
+
+export const verifyJwt = createAsyncThunk(
+  "auth/verify-jwt",
+  async (jwt: string, thunkAPI) => {
+    try {
+      return await authService.verifyJwt(jwt);
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Unable to verify");
+    }
+  }
+);

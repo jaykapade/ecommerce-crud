@@ -26,14 +26,12 @@ const LoginComponent: FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const { isLoading, isAuthenticated, user } = useAppSelector(
-    (state) => state.auth
-  );
+  const { isLoading, isAuthenticated } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!isAuthenticated || !user) return;
+    if (!isAuthenticated) return;
     navigate("/");
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated]);
 
   const onSubmitHandler = (userInfo: LoginUser) => {
     dispatch(login(userInfo));

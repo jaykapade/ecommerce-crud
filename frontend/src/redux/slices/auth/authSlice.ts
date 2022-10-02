@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Jwt } from "../../../models/jwt.type";
 import { DisplayUser } from "../../../models/user.type";
 import { RootState } from "../../store";
-import { login, logout, register } from "./authAction";
+import { login, logout, register, verifyJwt } from "./authAction";
 
 const storedUser: string | null = localStorage.getItem("user");
 const user: DisplayUser | null = !!storedUser ? JSON.parse(storedUser) : null;
@@ -79,6 +79,20 @@ export const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.jwt = null;
+        state.isAuthenticated = false;
+      })
+      // VERIFY JWT
+      .addCase(verifyJwt.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(verifyJwt.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isAuthenticated = action.payload;
+      })
+      .addCase(verifyJwt.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
         state.isAuthenticated = false;
       });
   },

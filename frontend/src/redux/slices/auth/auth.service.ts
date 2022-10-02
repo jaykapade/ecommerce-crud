@@ -1,4 +1,3 @@
-import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 import { DecodedJwt, Jwt } from "../../../models/jwt.type";
@@ -30,10 +29,22 @@ const logout = (): void => {
   localStorage.removeItem("jwt");
 };
 
+const verifyJwt = async (jwt: string): Promise<boolean> => {
+  const response = await api.post("/auth/verify-jwt", { jwt });
+
+  if (response.data) {
+    const jwtExpirationMs = response.data.exp * 1000;
+    return jwtExpirationMs > Date.now();
+  }
+
+  return false;
+};
+
 const authService = {
   register,
   login,
   logout,
+  verifyJwt,
 };
 
 export default authService;

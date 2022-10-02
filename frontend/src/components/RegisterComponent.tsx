@@ -1,4 +1,4 @@
-import { FC, FormEvent, useEffect } from "react";
+import { FC, useEffect } from "react";
 import {
   Box,
   Grid,
@@ -7,10 +7,15 @@ import {
   Typography,
   Button,
   Divider,
+  CircularProgress,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import { RegisterUser } from "../models/user.type";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { register as registerAction } from "../redux/slices/auth/authAction";
+import { reset } from "../redux/slices/auth/authSlice";
 
 const RegisterComponent: FC = () => {
   const {
@@ -19,9 +24,25 @@ const RegisterComponent: FC = () => {
     formState: { errors },
   } = useForm<RegisterUser>();
 
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const { isLoading, isSuccess } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(reset());
+      navigate("/login");
+    }
+  }, [isSuccess, dispatch]);
+
   const onSubmitHandler = (userInfo: RegisterUser) => {
     console.log(userInfo);
+    dispatch(registerAction(userInfo));
   };
+
+  if (isLoading)
+    return <CircularProgress sx={{ marginTop: "64px" }} color="primary" />;
 
   return (
     <Box
