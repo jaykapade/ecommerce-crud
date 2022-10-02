@@ -17,4 +17,9 @@ export class AuthController {
   async login(@Body() user: LoginUserDto): Promise<{ token: string | null }> {
     return this.authService.login(user);
   }
+
+  @Post('verify-jwt')
+  verifyJwt(@Body() payload: { jwt: string }) {
+    return this.authService.verifyJwt(payload.jwt);
+  }
 }
