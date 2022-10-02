@@ -1,7 +1,13 @@
-import React from "react";
+import HeaderComponent from "../components/HeaderComponent";
+import ProductListing from "../components/ProductListing";
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <HeaderComponent />
+      <ProductListing />
+    </>
+  );
 };
 
 export default Home;
