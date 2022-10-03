@@ -11,19 +11,25 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Product } from "../models/product.interface";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { createProduct } from "../redux/slices/products/productAction";
 
 const AddProduct = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Product>();
 
   const dispatch = useAppDispatch();
 
+  const { isError } = useAppSelector((state) => state.product);
+
   const onSubmitHandler = (newProduct: Product) => {
     console.log("🚀 ~ newProduct", newProduct);
+    dispatch(createProduct(newProduct));
+    if (!isError) reset();
   };
 
   return (
