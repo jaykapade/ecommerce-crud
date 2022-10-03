@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProductDocument } from "../../../models/product.interface";
-import { createProduct, getProductById, getProducts } from "./productAction";
+import { createProduct, getProducts, updateProduct } from "./productAction";
 
 interface AsyncState {
   isLoading: boolean;
@@ -40,19 +40,19 @@ export const productSlice = createSlice({
         state.isError = true;
         state.products = [];
       })
-      .addCase(getProductById.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getProductById.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.product = action.payload?.data || null;
-      })
-      .addCase(getProductById.rejected, (state) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.product = null;
-      })
+      // .addCase(getProductById.pending, (state) => {
+      //   state.isLoading = true;
+      // })
+      // .addCase(getProductById.fulfilled, (state, action) => {
+      //   state.isLoading = false;
+      //   state.isSuccess = true;
+      //   state.product = action.payload?.data || null;
+      // })
+      // .addCase(getProductById.rejected, (state) => {
+      //   state.isLoading = false;
+      //   state.isError = true;
+      //   state.product = null;
+      // })
       .addCase(createProduct.pending, (state) => {
         state.isLoading = true;
       })
@@ -62,6 +62,18 @@ export const productSlice = createSlice({
         if (action.payload) state.products.push(action?.payload);
       })
       .addCase(createProduct.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
+      .addCase(updateProduct.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        // if (action.payload) state.products.push(action?.payload);
+      })
+      .addCase(updateProduct.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       });

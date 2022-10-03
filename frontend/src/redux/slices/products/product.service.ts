@@ -11,6 +11,14 @@ const createProduct = async (newProduct: Product) => {
   return response.data;
 };
 
+const updateProduct = async (updatedProduct: Product, id: string) => {
+  const response = await api.patch<ProductDocument>(
+    `/product/${id}`,
+    updatedProduct
+  );
+  return response.data;
+};
+
 const getProductById = async (id: string) => {
   const response = await api.get<ProductDocument>(`/product/${id}`);
   return response;
@@ -19,6 +27,7 @@ const getProductById = async (id: string) => {
 const productService = {
   getProducts,
   createProduct,
+  updateProduct,
   getProductById,
 };
 
