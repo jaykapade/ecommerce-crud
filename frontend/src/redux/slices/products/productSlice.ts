@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProductDocument } from "../../../models/product.interface";
-import { createProduct, getProducts, updateProduct } from "./productAction";
+import {
+  createProduct,
+  deleteProduct,
+  getProducts,
+  updateProduct,
+} from "./productAction";
 
 interface AsyncState {
   isLoading: boolean;
@@ -71,9 +76,24 @@ export const productSlice = createSlice({
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        // if (action.payload) state.products.push(action?.payload);
       })
       .addCase(updateProduct.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
+      .addCase(deleteProduct.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteProduct.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        if (payload?.data) {
+          state.products = state?.products.filter(
+            (product) => product._id !== payload?.data?.id
+          );
+        }
+      })
+      .addCase(deleteProduct.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       });

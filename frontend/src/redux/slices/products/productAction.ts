@@ -24,6 +24,16 @@ export const getProductById = createAsyncThunk(
     }
   }
 );
+export const deleteProduct = createAsyncThunk(
+  "product/deleteProduct",
+  async (id: string) => {
+    try {
+      return await productService.deleteProduct(id);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }
+);
 export const createProduct = createAsyncThunk(
   "product/createProduct",
   async (newProduct: Product) => {

@@ -91,7 +91,7 @@ export class ProductService {
           HttpStatus.NOT_FOUND,
         );
       }
-      return { success: true, message: 'Product was deleted successfully' };
+      return { success: true, message: 'Product was deleted successfully', id };
     } catch (error) {
       throw new HttpException(
         { success: false, message: error.message },

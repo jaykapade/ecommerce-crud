@@ -24,11 +24,21 @@ const getProductById = async (id: string) => {
   return response;
 };
 
+const deleteProduct = async (id: string) => {
+  const response = await api.delete<{
+    success: boolean;
+    message: string;
+    id: string;
+  }>(`/product/${id}`);
+  return response;
+};
+
 const productService = {
   getProducts,
   createProduct,
   updateProduct,
   getProductById,
+  deleteProduct,
 };
 
 export default productService;
