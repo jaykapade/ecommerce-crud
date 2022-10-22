@@ -1,11 +1,35 @@
 version: '3.8'
 
 services:
+  backend:
+    build:
+      dockerfile: /api/ApiDockerfile
+      context: .
+    depends_on:
+      - mongo-express
+    # environment: 
+    #     DATABASE_URL: postgres://user:password@postgres:5432/db
+    #     NODE_ENV: development
+    #     PORT: 3000
+    ports:
+      - "5000:5000"
+  frontend:
+    build:
+      dockerfile: /frontend/Dockerfile
+      context: .
+    depends_on:
+      - backend
+    # environment: 
+    #     DATABASE_URL: postgres://user:password@postgres:5432/db
+    #     NODE_ENV: development
+    #     PORT: 3000
+    ports:
+      - "3000:3000"
   mongo:
     container_name: mongo
     image: mongo:latest
     environment:
-      -  MONGO_DATABASE="ecom"
+      - MONGO_DATABASE="ecom"
     ports:
       - 27017:27017
   # gui mongo express
@@ -13,8 +37,8 @@ services:
     container_name: mongo-express
     image: mongo-express
     environment:
-      -  ME_CONFIG_MONGODB_SERVER=mongo
-      -  ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_PORT=27017
     depends_on:
       - mongo
     ports:
